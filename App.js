@@ -9,52 +9,48 @@
 import React, {Component} from 'react';
 import {
   View,
-  Text
+  Text,
+  Button,
+  FlatList
 } from 'react-native';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
 import RNAndroidInstalledApps from 'react-native-android-installed-apps';
+import InstalledApp from './models/installed-app';
+import Card from './components/Card';
 
 //const App: () => React$Node = () => {
 class App extends Component {
-  /* Define state of app component */
-    state = { firstAppName : "Loading" };
-  
-    componentDidMount() {
-        /* When component first mounts/starts, run check() once */
-        console.log("2")
-        RNAndroidInstalledApps.getApps().then(apps => {
-                console.log("4")
-                if(apps.length > 0) {
-                    console.log("5")
-                    /* Get first item from apps array */
-                    const firstApp = apps[0];
+    state = { allInstalledApps : [] };
 
-                    /* Set component state with first app name */
-                    this.setState({ firstAppName : firstApp.appName });
-                    console.log({ firstApp })
-                }
-                else {
-                    console.log("6")
-                    /* If no apps returned, display default message */
-                    this.setState({ firstAppName : 'No app name found' });
-                }                    
-            });
-        console.log("9")    
+    componentDidMount() {
+        this.fetchInstalledApps();
     }
-  render() {
+
+    fetchInstalledApps() {
+        RNAndroidInstalledApps.getApps()
+            .then(apps => {
+                // If you want to see full object in console, then uncomment below line.
+                //console.log(apps[0])
+                const allApps = [];
+                for ( const app in apps){
+                    allApps.push(
+                        new InstalledApp(app, apps[app].appName, apps[app].apkDir)
+                    )
+                }
+                this.setState({
+                    allInstalledApps : allApps
+                });               
+            });
+    }
+
+    render() {
+
         return(
-            <View>
-                <Text>Hello</Text>
-                {/* { this.state.firstAppName } */}
-            </View>
+            <FlatList 
+                data={this.state.allInstalledApps}
+                keyExtractor={itemData => itemData.id}
+                renderItem={itemData => <Card appName={itemData.item.appName} apkDir={itemData.item.apkDir}/>}
+            />
         );
     }
 };
