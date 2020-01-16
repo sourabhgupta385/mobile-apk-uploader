@@ -18,7 +18,6 @@ import RNAndroidInstalledApps from 'react-native-android-installed-apps';
 import InstalledApp from './models/installed-app';
 import Card from './components/Card';
 import DocumentPicker from 'react-native-document-picker';
-import FilePickerManager from 'react-native-file-picker';
 
 //const App: () => React$Node = () => {
 class App extends Component {
@@ -118,22 +117,6 @@ class App extends Component {
                 throw err;
             }
         }    
-
-        // FilePickerManager.showFilePicker(null, (response) => {
-        //     console.log("2")
-        //     console.log('Response = ', response);
- 
-        //     if (response.didCancel) {
-        //         console.log('User cancelled file picker');
-        //     }
-        //     else if (response.error) {
-        //         console.log('FilePickerManager Error: ', response.error);
-        //     }
-        //     else {
-        //         console.log("")
-        //         console.log(response)
-        //     }
-        // });
     }
 
     render() {
@@ -146,7 +129,6 @@ class App extends Component {
                     keyExtractor={itemData => itemData.id}
                     renderItem={itemData => <Card appName={itemData.item.appName} apkDir={itemData.item.apkDir}/>}
                 />    
-                
             </View>
         );
     }

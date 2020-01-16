@@ -13,9 +13,7 @@
     "react": "16.9.0",
     "react-native": "0.61.5",
     "react-native-android-installed-apps": "^1.0.1",
-    "react-native-background-upload": "^5.1.0",
-    "react-native-document-picker": "^3.2.4",
-    "react-native-file-picker": "0.0.19"
+    "react-native-document-picker": "^3.2.4"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",

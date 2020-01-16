@@ -2,44 +2,15 @@ import React from "react";
 import {
   View,
   Text,
-  StyleSheet,
-  Button
+  StyleSheet
 } from "react-native";
-import Upload from 'react-native-background-upload';
-import futch from './api';
 
 const Card = props => {
-
-  const sendServer = () => {
-    console.log("Sending Started")
-    const data = new FormData();
-    data.append('name', 'testName');
-    data.append('app', {
-        uri: 'content://system/app/YouTube/YouTube.apk',
-        type: 'application/vnd.android.package-archive',
-        name: 'YouTube'
-      });
-    
-    console.log(data)
-    const url = Platform.OS === 'android' ? 'http://10.0.2.2:3000' : 'http://localhost:3000'; // genymotion's localhost is 10.0.3.2
-    futch(url + '/single', {
-      method: 'post',
-      body: data
-    }, (e) => {
-      const progress = e.loaded / e.total;
-      console.log(progress);
-      this.setState({
-        progress: progress
-      });
-    }).then((res) => console.log(res), (e) => console.log(e))
-  }
-
   return (
     <View style={styles.card}>
         <View style={styles.details}>
               <Text >App Name: <Text style={styles.name}>{props.appName}</Text></Text>
               <Text >APK Location: <Text style={styles.location}>{props.apkDir}</Text></Text>
-              <Button title="Upload APK" onPress={sendServer} />
         </View>
     </View>
   );
