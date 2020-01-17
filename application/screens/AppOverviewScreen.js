@@ -1,11 +1,38 @@
-import React from 'react';
-import {View, Button, StyleSheet} from 'react-native';
+import React, {useEffect} from 'react';
+import {View, Button, StyleSheet, PermissionsAndroid} from 'react-native';
 import Colors from '../constants/Colors';
 
 const AppOverviewScreen = props => {
+  const requestExternalStoreageRead = async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+        {
+          title: 'Read APK files from storage',
+          message: 'App needs to access your APK files',
+          buttonNeutral: 'Ask Me Later',
+          buttonNegative: 'Cancel',
+          buttonPositive: 'OK',
+        },
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        console.log('File access allowed!');
+      } else {
+        console.log('File access permission denied');
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  };
+
+  useEffect(() => {
+    requestExternalStoreageRead();
+  });
+
   const selectItemHandler = title => {
     props.navigation.navigate(title);
   };
+
   return (
     <View style={styles.container}>
       <View style={styles.buttonContainer}>
