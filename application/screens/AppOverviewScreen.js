@@ -16,7 +16,23 @@ const AppOverviewScreen = props => {
         },
       );
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        console.log('File access allowed!');
+        console.log('File read access allowed!');
+      } else {
+        console.log('File access permission denied');
+      }
+
+      const writeGranted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+        {
+          title: 'Read APK files from storage',
+          message: 'App needs to access your APK files',
+          buttonNeutral: 'Ask Me Later',
+          buttonNegative: 'Cancel',
+          buttonPositive: 'OK',
+        },
+      );
+      if (writeGranted === PermissionsAndroid.RESULTS.GRANTED) {
+        console.log('File write access allowed!');
       } else {
         console.log('File access permission denied');
       }
