@@ -17,7 +17,7 @@
     "react-native-document-picker": "^3.2.4",
     "react-native-fs": "^2.16.2",
     "react-native-gesture-handler": "^1.5.3",
-    "react-native-reanimated": "^1.7.0",
+    "react-native-reanimated": "^2.10.0",
     "react-native-safe-area-context": "^0.6.2",
     "react-native-screens": "^2.0.0-alpha.25",
     "react-navigation": "^4.0.10",
